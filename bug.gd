@@ -1,6 +1,8 @@
 class_name Bug
 extends CharacterBody2D
 
+signal dead
+
 @export var target = Vector2.ZERO
 @export var speed = 10.0
 @export var max_health = 30
@@ -27,6 +29,7 @@ func _ready() -> void:
 func hit(damage: int):
 	health -= damage
 	if health < 0:
+		dead.emit()
 		queue_free()
 		
 	stagger_timer = stagger_time

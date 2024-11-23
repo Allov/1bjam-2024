@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d150cvo5bxybo"]
+
+[ext_resource type="Texture2D" uid="uid://x27de03ak5sm" path="res://assets/map_tileset.png" id="1_k86qm"]
+
+[node name="MinedTileAnimation" type="Sprite2D"]
+texture = ExtResource("1_k86qm")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 48, 64, 16)

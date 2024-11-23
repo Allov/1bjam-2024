@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuochtwkl8t8b"]
+[gd_scene load_steps=10 format=3 uid="uid://cuochtwkl8t8b"]
 
+[ext_resource type="Script" path="res://world.gd" id="1_8mm7c"]
 [ext_resource type="PackedScene" uid="uid://cjcewup84rc4t" path="res://dome.tscn" id="1_c5cn3"]
 [ext_resource type="PackedScene" uid="uid://cd52y74na8uym" path="res://wave_manager.tscn" id="1_vmqbi"]
 [ext_resource type="Script" path="res://gun_turret.gd" id="2_0cstp"]
 [ext_resource type="PackedScene" uid="uid://btd2mfc24thke" path="res://bullet.tscn" id="3_1pmge"]
 [ext_resource type="Texture2D" uid="uid://dnh2gekgi38le" path="res://assets/gun-turret.png" id="3_l21f4"]
+[ext_resource type="PackedScene" uid="uid://dgvdlmks1wpv2" path="res://drill.tscn" id="5_3u3s2"]
 [ext_resource type="PackedScene" uid="uid://b68fbkmpu6wb2" path="res://bug.tscn" id="5_s47aw"]
+[ext_resource type="PackedScene" uid="uid://cun318mi5uwes" path="res://underground_map.tscn" id="6_gcvpd"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_8mm7c")
 
 [node name="WaveManager" parent="." instance=ExtResource("1_vmqbi")]
 spawn_positions = Array[Vector2]([Vector2(640, 300), Vector2(0, 300)])
@@ -16,9 +20,19 @@ bugs = Array[PackedScene]([ExtResource("5_s47aw")])
 [node name="Dome" parent="." node_paths=PackedStringArray("gun_turret") instance=ExtResource("1_c5cn3")]
 gun_turret = NodePath("../GunTurret")
 
+[node name="DomeCamera" type="Camera2D" parent="Dome"]
+position = Vector2(0, 60)
+
+[node name="Drill" parent="." node_paths=PackedStringArray("underground_map") instance=ExtResource("5_3u3s2")]
+position = Vector2(320, 300)
+underground_map = NodePath("../UndergroundMap")
+
+[node name="UndergroundMap" parent="." instance=ExtResource("6_gcvpd")]
+
 [node name="GunTurret" type="Node2D" parent="."]
 position = Vector2(320, 300)
 script = ExtResource("2_0cstp")
+disabled = true
 bullet_scene = ExtResource("3_1pmge")
 
 [node name="GunTurretSprite" type="Sprite2D" parent="GunTurret"]

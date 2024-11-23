@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://3v7bsek1cmti"]
+
+[sub_resource type="Curve" id="Curve_q14ew"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.506667, 0.758242), -1.19505, -1.19505, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_is8f2"]
+curve = SubResource("Curve_q14ew")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gdtxw"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(8, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+initial_velocity_max = 45.0
+gravity = Vector3(0, 98, 0)
+scale_max = 6.0
+color = Color(0.452043, 0.251782, 0.134036, 1)
+alpha_curve = SubResource("CurveTexture_is8f2")
+
+[node name="Explosion" type="GPUParticles2D"]
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_gdtxw")
+explosiveness = 0.8

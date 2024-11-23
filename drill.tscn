@@ -1,0 +1,169 @@
+[gd_scene load_steps=21 format=3 uid="uid://dgvdlmks1wpv2"]
+
+[ext_resource type="Script" path="res://drill.gd" id="1_4kfhn"]
+[ext_resource type="Texture2D" uid="uid://qleqwy3pavd3" path="res://assets/drill_bore_animated.png" id="2_kyf06"]
+[ext_resource type="AudioStream" uid="uid://4i0ie4b4p3s" path="res://assets/drill_start.wav" id="3_u0xup"]
+[ext_resource type="AudioStream" uid="uid://dd78bockk2wlp" path="res://assets/drill_loop.wav" id="4_ob5es"]
+[ext_resource type="AudioStream" uid="uid://cf8sx2lcxl6ct" path="res://assets/drill_end.wav" id="5_hi6i7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2rgt"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r65lf"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4gnt"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8mlq"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2s33"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5h5a"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ychmc"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_megs7"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12314"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f8j8"]
+atlas = ExtResource("2_kyf06")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgt5h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2rgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r65lf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4gnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8mlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2s33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5h5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ychmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_megs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12314")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f8j8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vou7r"]
+size = Vector2(30, 13)
+
+[sub_resource type="Curve" id="Curve_r38aj"]
+_data = [Vector2(0, 1), 0.0, 1.4, 0, 0, Vector2(0.2, 0.879121), 0.0, 0.0, 0, 0, Vector2(0.513333, 0.659341), 0.0, 0.0, 0, 0, Vector2(0.773333, 0.571429), 0.0, 0.0, 0, 0, Vector2(0.893333, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_nnvn2"]
+curve = SubResource("Curve_r38aj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s3s4e"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(16, 16, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(1, -1, 0)
+spread = 95.562
+initial_velocity_max = 86.02
+gravity = Vector3(0, 98, 0)
+linear_accel_min = -21.51
+linear_accel_max = 15.05
+radial_accel_min = 23.65
+radial_accel_max = 67.74
+tangential_accel_min = -97.85
+tangential_accel_max = -8.6
+damping_min = 32.796
+damping_max = 57.527
+scale_max = 6.0
+color = Color(0.339669, 0.276772, 0.126552, 1)
+alpha_curve = SubResource("CurveTexture_nnvn2")
+
+[node name="Drill" type="Node2D"]
+script = ExtResource("1_4kfhn")
+disabled = false
+
+[node name="DrillShaft" type="Line2D" parent="."]
+width = 8.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="DrillBore" type="CharacterBody2D" parent="."]
+
+[node name="DrillBoreSprite" type="AnimatedSprite2D" parent="DrillBore"]
+position = Vector2(0, 16)
+sprite_frames = SubResource("SpriteFrames_fgt5h")
+frame = 9
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DrillBore"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_vou7r")
+
+[node name="DrillBoreCamera" type="Camera2D" parent="DrillBore"]
+position = Vector2(0, -120)
+
+[node name="LeftRay" type="RayCast2D" parent="DrillBore"]
+position = Vector2(-8, 0)
+target_position = Vector2(0, 33)
+
+[node name="RightRay" type="RayCast2D" parent="DrillBore"]
+position = Vector2(7, 0)
+target_position = Vector2(0, 33)
+
+[node name="MiningParticles" type="GPUParticles2D" parent="DrillBore"]
+position = Vector2(0, 32)
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_s3s4e")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.3
+fixed_fps = 60
+
+[node name="DrillStart" type="AudioStreamPlayer2D" parent="DrillBore"]
+stream = ExtResource("3_u0xup")
+bus = &"SFX"
+
+[node name="DrillLoop" type="AudioStreamPlayer2D" parent="DrillBore"]
+stream = ExtResource("4_ob5es")
+bus = &"SFX"
+
+[node name="DrillEnd" type="AudioStreamPlayer2D" parent="DrillBore"]
+stream = ExtResource("5_hi6i7")
+bus = &"SFX"

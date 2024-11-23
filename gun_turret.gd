@@ -1,6 +1,7 @@
 class_name GunTurret
 extends Node2D
 
+@export var disabled = false
 @export var radius_x: float = 100.0 
 @export var radius_y: float = 80.0 
 @export var max_speed = 1.0
@@ -43,7 +44,18 @@ func _process(delta: float) -> void:
 		speed = 0
 		return
 		
+	if overheat_cooldown_timer > 0.0:
+		overheat_cooldown_timer -= delta
+		
+	if heat > 0.0 and overheat_cooldown_timer <= 0.0:
+		heat -= heat_loss_per_second * delta
+	
 	speed = lerpf(speed, max_speed, acceleration * delta)
+
+	if disabled:
+		charging_shot = false
+		charged_shot_timer = 0.0
+		speed = 0.0
 
 	angle += speed * direction * delta
 	
@@ -59,18 +71,14 @@ func _process(delta: float) -> void:
 	var x = center.x + radius_x * cos(angle)
 	var y = center.y + radius_y * sin(angle)
 	
-	gun_turret_sprite.rotation = angle + PI / 2
-	
-	if overheat_cooldown_timer > 0.0:
-		overheat_cooldown_timer -= delta
-		
-	if heat > 0.0 and overheat_cooldown_timer <= 0.0:
-		heat -= heat_loss_per_second * delta
-	
+	gun_turret_sprite.rotation = angle + PI / 2	
 	
 	position = Vector2(x, y)
 
 func _input(event: InputEvent) -> void:
+	if disabled:
+		return
+		
 	if event.is_action_pressed("ui_accept") and overheat_cooldown_timer <= 0.0 and not charging_shot:
 		charging_shot = true
 	
