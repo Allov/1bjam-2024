@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b68fbkmpu6wb2"]
+
+[ext_resource type="Script" path="res://bug.gd" id="1_pauva"]
+[ext_resource type="Texture2D" uid="uid://dkhswoy54ge63" path="res://assets/bug01.png" id="2_phb0l"]
+
+[node name="Bug" type="CharacterBody2D"]
+script = ExtResource("1_pauva")
+
+[node name="Bug01" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_phb0l")

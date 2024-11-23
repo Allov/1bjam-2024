@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://b68fbkmpu6wb2"]
+
+[ext_resource type="Script" path="res://bug.gd" id="1_pauva"]
+[ext_resource type="Texture2D" uid="uid://dkhswoy54ge63" path="res://assets/bug01.png" id="2_phb0l"]
+[ext_resource type="PackedScene" uid="uid://th0okrfuiacw" path="res://health_bar.tscn" id="3_iejc4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_173o5"]
+size = Vector2(15, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2wkxj"]
+
+[node name="Bug" type="CharacterBody2D" groups=["bugs"]]
+collision_mask = 4
+script = ExtResource("1_pauva")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_phb0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -7)
+shape = SubResource("RectangleShape2D_173o5")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_iejc4")]
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_2wkxj")

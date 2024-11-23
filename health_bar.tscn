@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://th0okrfuiacw"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_n36ya"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q7gao"]
+color = Color(1, 0, 0, 1)
+
+[node name="HealthBar" type="ProgressBar"]
+offset_left = -7.0
+offset_top = -17.0
+offset_right = 8.0
+offset_bottom = -13.0
+theme_override_styles/background = SubResource("StyleBoxLine_n36ya")
+theme_override_styles/fill = SubResource("StyleBoxLine_q7gao")
+value = 50.0
+show_percentage = false

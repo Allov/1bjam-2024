@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuochtwkl8t8b"]
+
+[ext_resource type="PackedScene" uid="uid://cjcewup84rc4t" path="res://dome.tscn" id="1_c5cn3"]
+[ext_resource type="PackedScene" uid="uid://cd52y74na8uym" path="res://wave_manager.tscn" id="1_vmqbi"]
+[ext_resource type="Script" path="res://gun_turret.gd" id="2_0cstp"]
+[ext_resource type="PackedScene" uid="uid://btd2mfc24thke" path="res://bullet.tscn" id="3_1pmge"]
+[ext_resource type="Texture2D" uid="uid://dnh2gekgi38le" path="res://assets/gun-turret.png" id="3_l21f4"]
+[ext_resource type="PackedScene" uid="uid://b68fbkmpu6wb2" path="res://bug.tscn" id="5_s47aw"]
+
+[node name="World" type="Node2D"]
+
+[node name="WaveManager" parent="." instance=ExtResource("1_vmqbi")]
+spawn_positions = Array[Vector2]([Vector2(640, 300), Vector2(0, 300)])
+bugs = Array[PackedScene]([ExtResource("5_s47aw")])
+
+[node name="Dome" parent="." node_paths=PackedStringArray("gun_turret") instance=ExtResource("1_c5cn3")]
+gun_turret = NodePath("../GunTurret")
+
+[node name="GunTurret" type="Node2D" parent="."]
+position = Vector2(320, 300)
+script = ExtResource("2_0cstp")
+bullet_scene = ExtResource("3_1pmge")
+
+[node name="GunTurretSprite" type="Sprite2D" parent="GunTurret"]
+position = Vector2(0, -13)
+texture = ExtResource("3_l21f4")
+
+[node name="Nozzle" type="Node2D" parent="GunTurret/GunTurretSprite"]
+position = Vector2(0, -10)

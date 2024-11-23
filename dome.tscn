@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjcewup84rc4t"]
+
+[ext_resource type="Script" path="res://dome.gd" id="1_ql87f"]
+[ext_resource type="Texture2D" uid="uid://loytg2gi0y3g" path="res://assets/dome.png" id="2_5bish"]
+[ext_resource type="PackedScene" uid="uid://th0okrfuiacw" path="res://health_bar.tscn" id="2_jng27"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_pln4b"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_iej6y"]
+color = Color(0.92319, 0.482941, 3.85046e-07, 1)
+
+[node name="Dome" type="StaticBody2D"]
+position = Vector2(320, 120)
+collision_layer = 4
+script = ExtResource("1_ql87f")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_jng27")]
+offset_left = -89.0
+offset_top = 187.0
+offset_right = 90.0
+offset_bottom = 188.0
+max_value = 500.0
+
+[node name="GunTurretHeat" parent="." instance=ExtResource("2_jng27")]
+offset_left = -89.0
+offset_top = 192.0
+offset_right = 90.0
+offset_bottom = 193.0
+theme_override_styles/background = SubResource("StyleBoxLine_pln4b")
+theme_override_styles/fill = SubResource("StyleBoxLine_iej6y")
+max_value = 1.0
+value = 0.5
+
+[node name="DomeSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_5bish")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(93, 177, 93, 153, 80, 127, 62, 112, 39, 102, 10, 96, -6, 96, -28, 100, -52, 109, -70, 121, -82, 135, -91, 158, -90, 177, -90, 177)
