@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://cun318mi5uwes"]
+[gd_scene load_steps=9 format=4 uid="uid://cun318mi5uwes"]
 
 [ext_resource type="Texture2D" uid="uid://x27de03ak5sm" path="res://assets/map_tileset.png" id="1_wf5th"]
 [ext_resource type="Script" path="res://underground_map.gd" id="2_ki7xx"]
 [ext_resource type="PackedScene" uid="uid://3v7bsek1cmti" path="res://explosion.tscn" id="3_p68o0"]
 [ext_resource type="PackedScene" uid="uid://d150cvo5bxybo" path="res://mined_tile_animation.tscn" id="4_hlmlv"]
+[ext_resource type="AudioStream" uid="uid://bbjay8qdygi0u" path="res://assets/stone_falling.wav" id="5_7macs"]
+[ext_resource type="AudioStream" uid="uid://bg5v4nmbou22h" path="res://assets/stone_digging.wav" id="6_k258v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ymp7h"]
 texture = ExtResource("1_wf5th")
@@ -30,3 +32,12 @@ tile_set = SubResource("TileSet_nwomo")
 script = ExtResource("2_ki7xx")
 explosion_scene = ExtResource("3_p68o0")
 mined_tile_animation = ExtResource("4_hlmlv")
+
+[node name="TileMinedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7macs")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="TileMiningSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_k258v")
+bus = &"SFX"

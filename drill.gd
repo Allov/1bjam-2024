@@ -51,12 +51,21 @@ func _process(delta: float) -> void:
 	drill_bore.velocity.y = moving_speed * direction
 	
 	drill_bore.move_and_slide()
+
+	drill_loop.pitch_scale = abs(drill_bore.velocity.y / speed) * .05 + (1.0 - .05)
+	
+	if drill_bore.velocity.y == 0:
+		drill_loop.pitch_scale = .5
+
+	if drill_bore.velocity.y != 0:
+		play_mining_sound()
 	
 	if drill_bore.position.y < 0 and returning_home:
 		returning_home = false
 		disabled = true
 		direction = 1
 		home_reached.emit()
+		stop_mining_sound()
 		drill_bore.position.y = 0
 	
 	drill_shaft.add_point(drill_shaft.to_local(drill_bore.global_position))
@@ -79,8 +88,6 @@ func mine(power):
 			mining_particles.one_shot = true
 			drill_bore_sprite.play("default", power / mining_power)
 			
-			play_mining_sound()
-
 func play_mining_sound():
 	if drill_start.playing or drill_loop.playing:
 		return
