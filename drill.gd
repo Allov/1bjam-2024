@@ -10,6 +10,7 @@ signal home_reached
 @export var underground_map: UndergroundMap
 @export var mining_power = 10
 @export var mining_cooldown_time = .2
+@export var flying_drone_scene: PackedScene
 
 @onready var drill_bore: CharacterBody2D = $DrillBore
 @onready var drill_shaft: Line2D = $DrillShaft
@@ -102,7 +103,7 @@ func stop_mining_sound():
 	drill_end.play()
 
 func _input(event: InputEvent) -> void:
-	if returning_home:
+	if returning_home or disabled:
 		return
 	
 	if event.is_action_pressed("ui_accept") and direction > 0:
@@ -112,6 +113,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("ui_accept") and (charge_timer < single_tap_time_threshold and charging):
 		charge_timer = 0.0
 		charging = false
+		var drone: Drone = flying_drone_scene.instantiate()
+		drone.underground_map = underground_map
+		var spawn_position = drill_bore.global_position + Vector2.UP * 32
+		drone.target = underground_map.request_mining_target(spawn_position)
+		drone.global_position = spawn_position
+		get_tree().root.add_child(drone)
+		
 		#mine(mining_power)
 		#stop_mining_sound()
 	elif event.is_action_released("ui_accept"):

@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dgvdlmks1wpv2"]
+[gd_scene load_steps=22 format=3 uid="uid://dgvdlmks1wpv2"]
 
 [ext_resource type="Script" path="res://drill.gd" id="1_4kfhn"]
+[ext_resource type="PackedScene" uid="uid://dbuos0enogdi5" path="res://drone.tscn" id="2_ju4e6"]
 [ext_resource type="Texture2D" uid="uid://qleqwy3pavd3" path="res://assets/drill_bore_animated.png" id="2_kyf06"]
 [ext_resource type="AudioStream" uid="uid://4i0ie4b4p3s" path="res://assets/drill_start.wav" id="3_u0xup"]
 [ext_resource type="AudioStream" uid="uid://dd78bockk2wlp" path="res://assets/drill_loop.wav" id="4_ob5es"]
@@ -118,6 +119,7 @@ alpha_curve = SubResource("CurveTexture_nnvn2")
 [node name="Drill" type="Node2D"]
 script = ExtResource("1_4kfhn")
 disabled = false
+flying_drone_scene = ExtResource("2_ju4e6")
 
 [node name="DrillShaft" type="Line2D" parent="."]
 width = 8.0

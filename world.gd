@@ -33,8 +33,10 @@ func change_mode(new_control_mode: ControlModes):
 
 	if control_mode == ControlModes.GUN_TURRET:
 		dome_camera.make_current()
+		MusicManagerInstance.play_combat_music()
 	elif control_mode == ControlModes.DRILL:
 		drill_bore_camera.make_current()
+		MusicManagerInstance.play_mining_music()
 
 func _drill_reached_home():
 	change_mode(ControlModes.GUN_TURRET)

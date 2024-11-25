@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://dbuos0enogdi5"]
+
+[ext_resource type="Script" path="res://drone.gd" id="1_airuq"]
+[ext_resource type="Texture2D" uid="uid://bo2sjf4eaixsp" path="res://assets/flying_drone.png" id="2_3x703"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_525rd"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqhg5"]
+atlas = ExtResource("2_3x703")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6um8"]
+atlas = ExtResource("2_3x703")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6o5m"]
+atlas = ExtResource("2_3x703")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqqhp"]
+atlas = ExtResource("2_3x703")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqbg4"]
+atlas = ExtResource("2_3x703")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnfle"]
+atlas = ExtResource("2_3x703")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfdrh"]
+atlas = ExtResource("2_3x703")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfwa5"]
+atlas = ExtResource("2_3x703")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rw8lh"]
+atlas = ExtResource("2_3x703")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r0p0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqhg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6um8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6o5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqqhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqbg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnfle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfdrh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfwa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw8lh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Drone" type="CharacterBody2D"]
+collision_layer = 32
+script = ExtResource("1_airuq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_525rd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_r0p0m")
+autoplay = "default"
+frame_progress = 0.833567
+
+[node name="MiningRay" type="RayCast2D" parent="."]
+target_position = Vector2(-11, 0)
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 0, 0, 1)

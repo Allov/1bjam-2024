@@ -24,6 +24,47 @@ func _ready() -> void:
 	
 	generate_map()
 	
+func request_mining_target(pos: Vector2):
+	var map_position = local_to_map(to_local(pos))
+	
+	var target_map_position = find_nearest_key(tiles_health, map_position)
+	
+	if target_map_position != null:
+		return to_global(map_to_local(target_map_position))
+		
+	return null
+	
+func find_nearest_key(array: Dictionary, start: Vector2i):
+	if array.is_empty():
+		return null  # No keys to search
+	
+	# Directions in clockwise order: right, down, left, up
+	var directions = [Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT, Vector2i.UP]
+	
+	if randi_range(0, 1):
+		directions.reverse()
+		
+	var step_size = 1  # Distance to travel in each direction
+	var current = start  # Start at the given position
+	
+	# Check if the start key exists
+	if array.has(current):
+		return current
+	
+	# Spiral search
+	while true:
+		for direction in directions:
+			for _a in range(step_size):
+				current += direction
+				if array.has(current):
+					return current  # Found a valid key
+			# Alternate step size increases after completing right-down and left-up movements
+			if direction == Vector2i.UP or direction == Vector2i.DOWN:
+				step_size += 1
+
+	return null  # This point should not be reached
+
+	
 
 func generate_map():
 	var source_id = tile_set.get_source_id(0)
@@ -38,6 +79,11 @@ func generate_map():
 			var current_tile = get_cell_tile_data(Vector2(x, y))
 			
 			if current_tile:
+				var tile_mining_health = current_tile.get_custom_data("health")
+				if tile_mining_health > 0:
+					var tile_info = TileInfo.new()
+					tile_info.set_health(tile_info.health * current_level)
+					tiles_health[Vector2i(x, y)] = tile_info
 				continue
 
 			set_cell(Vector2(x, y), source_id, tiles[TileTypes.DIRT])
@@ -80,6 +126,9 @@ func mine_at(pos: Vector2, mining_power: int):
 	var map_position = local_to_map(local_position)
 	var map_position_global_position = to_global(map_to_local(map_position))
 	
+	if not tiles_health.has(map_position):
+		return true
+	
 	var tile_info: TileInfo = tiles_health[map_position]
 	
 	if not tile_info.animation_sprite:
@@ -114,6 +163,12 @@ func mine_at(pos: Vector2, mining_power: int):
 		explosion.global_position = pos
 		explosion.one_shot = true
 		tile_mining_sound.play()
+		
+		tiles_health.erase(map_position)
+		print("destroyed ", map_position)
+		return true
+		
+	return false
 
 func _process(delta: float) -> void:
 	pass

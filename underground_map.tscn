@@ -15,14 +15,17 @@ texture = ExtResource("1_wf5th")
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/custom_data_0 = 50
 3:0/0 = 0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/custom_data_0 = 100
 4:0/0 = 0
+4:0/0/custom_data_0 = -1
 
 [sub_resource type="TileSet" id="TileSet_nwomo"]
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "health"
-custom_data_layer_0/type = 0
+custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_ymp7h")
 
 [node name="UndergroundMap" type="TileMapLayer"]
